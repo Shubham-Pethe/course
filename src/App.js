@@ -1,23 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const[value,setValue]=useState('');
+  function changeHandler(event){
+    setValue(event.target.value);
+  }
+
+  // for the every Render
+  // useEffect(()=>{
+  //   console.log("hi i am rendered");
+  // })
+
+  // for the frist time only
+  // useEffect(()=>{
+  //   console.log("Hi i am rendered");
+  // },[]);
+
+
+  // whenever dependencies change
+  useEffect(()=>{
+    console.log("Hi i am rendered");
+  },[value]);
+
+  // to handle unmounting of the component
+  useEffect(()=>{
+    console.log("listner is added");
+
+    return()=>{
+      console.log('listner is removed');
+    }
+  },[value]);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input onChange={changeHandler}></input>
     </div>
   );
 }
